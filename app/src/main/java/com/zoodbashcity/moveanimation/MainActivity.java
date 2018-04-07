@@ -2,13 +2,15 @@ package com.zoodbashcity.moveanimation;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.graphics.Rect;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements ObjectAnimator.AnimatorUpdateListener{
+public class MainActivity extends AppCompatActivity{
 
     private static final float STEP_X = 100f;
     private static final float STEP_Y = 100f;
@@ -46,12 +48,14 @@ public class MainActivity extends AppCompatActivity implements ObjectAnimator.An
             animator.start();
             break;
         }
+        Rect ballRect = new Rect(ball.getLeft(), ball.getTop(), ball.getRight(), ball.getBottom());
+        Rect goalRect = new Rect(goal.getLeft(), goal.getTop(), goal.getRight(), ball.getBottom());
+
+        if(goalRect.intersect(ballRect)) {
+            Toast.makeText(MainActivity.this, "Goal", Toast.LENGTH_SHORT).show();
+        }
+
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override
-    public void onAnimationUpdate(ValueAnimator animation) {
-        ViewGroup.LayoutParams goalParams = goal.getLayoutParams();
-
-    }
 }
