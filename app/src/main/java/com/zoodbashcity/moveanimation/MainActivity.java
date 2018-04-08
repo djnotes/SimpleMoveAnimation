@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity{
 
-    private static final float STEP_X = 100f;
-    private static final float STEP_Y = 100f;
+    private static final float STEP_X = 200f;
+    private static final float STEP_Y = 200f;
     ImageView ball;  //ball
     ImageView goal; //goal
 
@@ -45,13 +45,13 @@ public class MainActivity extends AppCompatActivity{
                 break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 animator = ObjectAnimator.ofFloat(ball, "translationY",   ball.getY() + STEP_Y);
-            animator.start();
+                animator.start();
             break;
         }
         Rect ballRect = new Rect(ball.getLeft(), ball.getTop(), ball.getRight(), ball.getBottom());
         Rect goalRect = new Rect(goal.getLeft(), goal.getTop(), goal.getRight(), ball.getBottom());
 
-        if(goalRect.intersect(ballRect)) {
+        if(goalRect.contains(ballRect)) {
             Toast.makeText(MainActivity.this, "Goal", Toast.LENGTH_SHORT).show();
         }
 
